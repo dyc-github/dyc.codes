@@ -1,19 +1,69 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Root from "./routes/root";
+import Home from "./routes/home";
+import Article from "./routes/article";
+import Work from "./routes/work";
+import Error from "./routes/error";
+import Contact from "./routes/contact";
+import Extracurriculars from "./routes/extracurriculars";
+
+const getMarkdownFile = (articleID: string | undefined) => {
+  return import(`./markdown/${articleID}.md`)
+    .then((res) => {
+      return fetch(res.default)
+        .then((res) => res.text())
+        .then((res) => res);
+    })
+    .catch((err) => {
+      console.log(err);
+      throw new Response("Not Found", { status: 404 });
+    });
+};
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  document.getElementById("root") as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "/work",
+        element: <Work />,
+      },
+      {
+        path: "/extracurriculars",
+        element: <Extracurriculars />,
+      },
+      {
+        path: "/contacts",
+        element: <Contact />,
+      },
+      {
+        path: "/:parentPage?/article/:articleID",
+        element: <Article />,
+        errorElement: <Error />,
+        loader: async ({ params }) => getMarkdownFile(params.articleID),
+      },
+      {
+        path: "*",
+        element: <Error />,
+      },
+    ],
+  },
+]);
+
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
