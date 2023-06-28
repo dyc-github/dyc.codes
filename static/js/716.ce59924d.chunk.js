@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdyc_codes=self.webpackChunkdyc_codes||[]).push([[716],{716:function(e,c,s){e.exports=s.p+"static/media/evernote.628a526900a0b50f3fb9.md"}}]);

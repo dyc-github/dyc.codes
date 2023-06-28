@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdyc_codes=self.webpackChunkdyc_codes||[]).push([[427],{427:function(c,e,s){c.exports=s.p+"static/media/citris.adccee283f3301fcc94a.md"}}]);

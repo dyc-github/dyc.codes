@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdyc_codes=self.webpackChunkdyc_codes||[]).push([[371],{371:function(e,c,s){e.exports=s.p+"static/media/roomie.62812f751201d4448502.md"}}]);
